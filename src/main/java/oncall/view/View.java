@@ -25,4 +25,9 @@ public class View {
         outputView.printMessage(Output.MONTH_DAY_MESSAGE);
         return inputView.userInput();
     }
+
+    public String inputWeekDayOncall() {
+        outputView.printMessage(Output.WEEKDAY_MESSAGE);
+        return inputView.userInput();
+    }
 }

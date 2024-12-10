@@ -11,10 +11,6 @@ import java.util.regex.Pattern;
 import static oncall.global.exception.ExceptionMessage.INVALID_MONTH_DAY_FORMAT;
 
 public class Oncall {
-    private int month;
-    private int date;
-    private String startDay;
-
     public static final String DAY_PATTERN = "([월|화|수|목|금|토|일])";
     public static final String MONTH_PATTERN = "([1-9]\\d*)";
     private static final String DELIMITER = ",";
@@ -23,14 +19,14 @@ public class Oncall {
     private static final int START_MONTH = 1;
     private static final int END_MONTH = 12;
 
+    private int month;
+    private int date;
+    private String startDay;
+
     private Oncall(String month, String startDay) {
         this.month = validateMonth(month);
         this.date = setDateFromMonth(this.month);
         this.startDay = startDay;
-
-        System.out.println("this.month = " + this.month);
-        System.out.println("this.date = " + this.date);
-        System.out.println("this.startDay = " + this.startDay);
     }
 
     public static Oncall from(String userInput) {
