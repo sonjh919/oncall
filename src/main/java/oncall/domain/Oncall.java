@@ -2,12 +2,15 @@ package oncall.domain;
 
 import oncall.global.exception.ValidatorBuilder;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static oncall.domain.DayCategory.*;
+import static oncall.domain.LegalHoliday.isHoliday;
 import static oncall.global.exception.ExceptionMessage.INVALID_MONTH_DAY_FORMAT;
 
 public class Oncall {
@@ -19,9 +22,13 @@ public class Oncall {
     private static final int START_MONTH = 1;
     private static final int END_MONTH = 12;
 
+    private static final List<String> DAY = List.of("월", "화", "수", "목", "금", "토", "일");
+
     private int month;
     private int date;
     private String startDay;
+
+    List<Schedule> schedules = new ArrayList<>();
 
     private Oncall(String month, String startDay) {
         this.month = validateMonth(month);
@@ -67,4 +74,29 @@ public class Oncall {
 
         return dateOfMonth.get(month);
     }
+
+    public void setSchedule(Workers workers) {
+        int startDayIndex = DAY.indexOf(startDay);
+        String beforeWorker = null;
+        for (int currentDate = 0; currentDate < date; currentDate++) {
+            beforeWorker = workers.getworker(checkCategory(startDayIndex, currentDate), beforeWorker);
+            schedules.add(Schedule.of(month, currentDate+1, checkCategory(startDayIndex, currentDate), beforeWorker));
+        }
+
+        for (Schedule schedule : schedules) {
+            System.out.print(schedule.getMonth() +" " + schedule.getDate()
+                    + schedule.getDayCategory().toString() + schedule.getWorker() + "\n");
+        }
+    }
+
+    private DayCategory checkCategory(int startDayIndex, int currentDate) {
+        if ((startDayIndex + currentDate) % 7 <= 4) {
+            if (isHoliday(month, currentDate)) {
+                return WEEKDAY_HOLIDAY;
+            }
+            return WEEKDAY;
+        }
+        return WEEKEND;
+    }
+
 }

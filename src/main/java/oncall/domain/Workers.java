@@ -3,7 +3,9 @@ package oncall.domain;
 import oncall.global.exception.ExceptionMessage;
 import oncall.global.exception.ValidatorBuilder;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static oncall.global.exception.ExceptionMessage.INVALID_ONCALL_FORMAT;
 
@@ -13,17 +15,20 @@ public class Workers {
     private static final int MIN_WORKERS_SIZE = 5;
     private static final int MAX_WORKERS_SIZE = 35;
 
-    private List<String> weekDayWorkers;
-    private List<String> weekEndWorkers;
+    private List<String> weekDayWorkers = new ArrayList<>();
+    private List<String> weekEndWorkers = new ArrayList<>();
 
     private Workers(List<String> weekDayWorkers, List<String> weekEndWorkers) {
-        this.weekDayWorkers = validateWorkers(weekDayWorkers);
-        this.weekEndWorkers = validateWorkers(weekEndWorkers);
+        this.weekDayWorkers.addAll(validateWorkers(weekDayWorkers));
+        this.weekEndWorkers.addAll(validateWorkers(weekEndWorkers));
         validateWorkersFormation();
     }
 
     public static Workers of(String weekDayWorkers, String weekEndWorkers) {
-        return new Workers(List.of(weekDayWorkers.split(DELIMITER)), List.of(weekEndWorkers.split(DELIMITER)));
+        List<String> tmp1 = List.of(weekDayWorkers.split(DELIMITER));
+        List<String> tmp2 = List.of(weekEndWorkers.split(DELIMITER));
+
+        return new Workers(tmp1, tmp2);
     }
 
     private void validateWorkersFormation() {
@@ -39,5 +44,30 @@ public class Workers {
                 .validate(workers -> workers.stream()
                         .anyMatch(worker -> worker.length() > MAX_WORKER_SIZE || worker.isEmpty()), INVALID_ONCALL_FORMAT)
                 .get();
+    }
+
+    public String getworker(DayCategory dayCategory, String beforeWorker) {
+        if(dayCategory == DayCategory.WEEKDAY){
+            if(Objects.equals(weekDayWorkers.get(0), beforeWorker)){
+                return getWeekDayWorker(1);
+            }
+            return getWeekDayWorker(0);
+        }
+        if(Objects.equals(weekEndWorkers.get(0), beforeWorker)){
+            return getWeekEndWorker(1);
+        }
+        return getWeekEndWorker(0);
+    }
+
+    private String getWeekEndWorker(int index) {
+        String worker = weekEndWorkers.remove(index);
+        weekEndWorkers.add(worker);
+        return worker;
+    }
+
+    private String getWeekDayWorker(int index) {
+        String worker = weekDayWorkers.remove(index);
+        weekDayWorkers.add(worker);
+        return worker;
     }
 }

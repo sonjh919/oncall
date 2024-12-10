@@ -16,9 +16,8 @@ public class OncallController {
     public void start(){
         Oncall oncall = createStartDayFromUserInput();
         Workers workers = createWorkersFromUserInput();
-//        getValidInput(() -> createOncallFromUserInput());
-//        changeOncallSchedule();
-//        outputOncall();
+        changeOncallSchedule(oncall, workers);
+        outputOncall();
     }
 
     private Oncall createStartDayFromUserInput() {
@@ -33,6 +32,10 @@ public class OncallController {
         String weekDayWorkers = view.inputWeekDayOncall();
         String weekEndWorkers = view.inputWeekEndOncall();
         return Workers.of(weekDayWorkers, weekEndWorkers);
+    }
+
+    private void changeOncallSchedule(Oncall oncall, Workers workers) {
+        oncall.setSchedule(workers);
     }
 
 }
