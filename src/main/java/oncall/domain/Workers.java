@@ -7,21 +7,29 @@ import java.util.List;
 
 import static oncall.global.exception.ExceptionMessage.INVALID_ONCALL_FORMAT;
 
-public class WeekDayOncall {
+public class Workers {
     private static final String DELIMITER = ",";
     private static final int MAX_WORKER_SIZE = 5;
     private static final int MIN_WORKERS_SIZE = 5;
     private static final int MAX_WORKERS_SIZE = 35;
 
-    private List<String> workers;
+    private List<String> weekDayWorkers;
+    private List<String> weekEndWorkers;
 
-    private WeekDayOncall(List<String> workers) {
-        this.workers = validateWorkers(workers);
-        workers.forEach(System.out::println);
+    private Workers(List<String> weekDayWorkers, List<String> weekEndWorkers) {
+        this.weekDayWorkers = validateWorkers(weekDayWorkers);
+        this.weekEndWorkers = validateWorkers(weekEndWorkers);
+        validateWorkersFormation();
     }
 
-    public static WeekDayOncall from(String workers) {
-        return new WeekDayOncall(List.of(workers.split(DELIMITER)));
+    public static Workers of(String weekDayWorkers, String weekEndWorkers) {
+        return new Workers(List.of(weekDayWorkers.split(DELIMITER)), List.of(weekEndWorkers.split(DELIMITER)));
+    }
+
+    private void validateWorkersFormation() {
+        if(weekDayWorkers.size() != weekEndWorkers.size()){
+            throw new IllegalArgumentException(INVALID_ONCALL_FORMAT.message);
+        }
     }
 
     private List<String> validateWorkers(List<String> input) {

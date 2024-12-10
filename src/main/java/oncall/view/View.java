@@ -30,4 +30,9 @@ public class View {
         outputView.printMessage(Output.WEEKDAY_MESSAGE);
         return inputView.userInput();
     }
+
+    public String inputWeekEndOncall() {
+        outputView.printMessage(Output.WEEKEND_MESSAGE);
+        return inputView.userInput();
+    }
 }

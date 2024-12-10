@@ -1,7 +1,7 @@
 package oncall.controller;
 
 import oncall.domain.Oncall;
-import oncall.domain.WeekDayOncall;
+import oncall.domain.Workers;
 import oncall.view.View;
 
 import static oncall.global.exception.ExceptionHandler.getValidInput;
@@ -15,7 +15,7 @@ public class OncallController {
 
     public void start(){
         Oncall oncall = createStartDayFromUserInput();
-        createOncallFromUserInput();
+        Workers workers = createWorkersFromUserInput();
 //        getValidInput(() -> createOncallFromUserInput());
 //        changeOncallSchedule();
 //        outputOncall();
@@ -25,10 +25,14 @@ public class OncallController {
         return getValidInput(() -> Oncall.from(view.inputStartDay()));
     }
 
-    private void createOncallFromUserInput() {
-        // 2개 같이 입력받아야함
-        getValidInput(() -> WeekDayOncall.from(view.inputWeekDayOncall()));
+    private Workers createWorkersFromUserInput() {
+        return getValidInput(this::createWorkers);
+    }
 
+    private Workers createWorkers() {
+        String weekDayWorkers = view.inputWeekDayOncall();
+        String weekEndWorkers = view.inputWeekEndOncall();
+        return Workers.of(weekDayWorkers, weekEndWorkers);
     }
 
 }
