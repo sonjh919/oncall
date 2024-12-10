@@ -78,14 +78,15 @@ public class Oncall {
     public void setSchedule(Workers workers) {
         int startDayIndex = DAY.indexOf(startDay);
         String beforeWorker = null;
-        for (int currentDate = 0; currentDate < date; currentDate++) {
+        for (int currentDate = 1; currentDate <= date; currentDate++) {
             beforeWorker = workers.getworker(checkCategory(startDayIndex, currentDate), beforeWorker);
-            schedules.add(Schedule.of(month, currentDate+1, checkCategory(startDayIndex, currentDate), beforeWorker));
+            schedules.add(Schedule.of(month, currentDate, checkCategory(startDayIndex, currentDate), beforeWorker));
         }
+
     }
 
     private DayCategory checkCategory(int startDayIndex, int currentDate) {
-        if ((startDayIndex + currentDate) % 7 <= 4) {
+        if (((startDayIndex + currentDate-1) % 7) <= 4) {
             if (isHoliday(month, currentDate)) {
                 return WEEKDAY_HOLIDAY;
             }

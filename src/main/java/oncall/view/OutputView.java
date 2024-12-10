@@ -26,7 +26,7 @@ public class OutputView {
         }
     }
 
-    private Object getDay(int date, int startDayIndex) {
+    private String getDay(int date, int startDayIndex) {
         return DAY.get((startDayIndex + date-1)%7);
     }
 
