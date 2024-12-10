@@ -82,11 +82,6 @@ public class Oncall {
             beforeWorker = workers.getworker(checkCategory(startDayIndex, currentDate), beforeWorker);
             schedules.add(Schedule.of(month, currentDate+1, checkCategory(startDayIndex, currentDate), beforeWorker));
         }
-
-        for (Schedule schedule : schedules) {
-            System.out.print(schedule.getMonth() +" " + schedule.getDate()
-                    + schedule.getDayCategory().toString() + schedule.getWorker() + "\n");
-        }
     }
 
     private DayCategory checkCategory(int startDayIndex, int currentDate) {
@@ -99,4 +94,11 @@ public class Oncall {
         return WEEKEND;
     }
 
+    public List<Schedule> getSchedule() {
+        return schedules;
+    }
+
+    public int getStartDayIndex() {
+        return DAY.indexOf(startDay);
+    }
 }

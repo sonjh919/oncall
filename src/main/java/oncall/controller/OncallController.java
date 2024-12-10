@@ -17,7 +17,7 @@ public class OncallController {
         Oncall oncall = createStartDayFromUserInput();
         Workers workers = createWorkersFromUserInput();
         changeOncallSchedule(oncall, workers);
-        outputOncall();
+        outputOncall(oncall);
     }
 
     private Oncall createStartDayFromUserInput() {
@@ -36,6 +36,10 @@ public class OncallController {
 
     private void changeOncallSchedule(Oncall oncall, Workers workers) {
         oncall.setSchedule(workers);
+    }
+
+    private void outputOncall(Oncall oncall) {
+        view.outputSchedule(oncall.getSchedule(), oncall.getStartDayIndex());
     }
 
 }

@@ -1,5 +1,9 @@
 package oncall.view;
 
+import oncall.domain.Schedule;
+
+import java.util.List;
+
 public class View {
     private final InputView inputView;
     private final OutputView outputView;
@@ -34,5 +38,9 @@ public class View {
     public String inputWeekEndOncall() {
         outputView.printMessage(Output.WEEKEND_MESSAGE);
         return inputView.userInput();
+    }
+
+    public void outputSchedule(List<Schedule> schedules, int startDayIndex) {
+        outputView.printSchedule(schedules, startDayIndex);
     }
 }
