@@ -1,6 +1,9 @@
 package oncall.controller;
 
+import oncall.domain.Oncall;
 import oncall.view.View;
+
+import static oncall.global.exception.ExceptionHandler.getValidInput;
 
 public class OncallController {
     private final View view;
@@ -10,10 +13,14 @@ public class OncallController {
     }
 
     public void start(){
-//        createStartDayFromUserInput();
+        createStartDayFromUserInput();
 //        createOncallFromUserInput();
 //        changeOncallSchedule();
 //        outputOncall();
+    }
+
+    private void createStartDayFromUserInput() {
+        getValidInput(() -> Oncall.from(view.inputStartDay()));
     }
 
 }
