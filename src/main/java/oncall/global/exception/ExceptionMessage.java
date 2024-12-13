@@ -1,7 +1,7 @@
 package oncall.global.exception;
 
 public enum ExceptionMessage {
-    INVALID_INPUT("잘못된 입력입니다."),
+    INVALID_INPUT("유효하지 않은 입력 값입니다."),
     INVALID_YES_OR_NO("Y 또는 N으로 입력해야 합니다."),
     NOT_INTEGER("정수만 입력 가능합니다.");
 
