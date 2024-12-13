@@ -10,6 +10,11 @@ public class OncallController {
     }
 
     public void start(){
+        inputMonthAndDayFromUser();
+        inputWeekdayOncallFromUser();
+        inputWeekendOncallFromUser();
+        createOncall();
+        outputOncall();
     }
 
 }

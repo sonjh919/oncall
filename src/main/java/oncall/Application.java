@@ -1,7 +1,11 @@
 package oncall;
 
+import oncall.controller.OncallController;
+import oncall.global.config.AppConfig;
+
 public class Application {
     public static void main(String[] args) {
-        //todo
+        OncallController oncallController = AppConfig.INSTANCE.createController();
+        oncallController.start();
     }
 }
