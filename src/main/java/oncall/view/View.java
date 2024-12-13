@@ -23,4 +23,14 @@ public class View {
         outputView.printMessage(Output.INPUT_MONTH_DAY_MESSAGE);
         return inputView.userInput();
     }
+
+    public String inputWeekdayWorkers() {
+        outputView.printMessage(Output.INPUT_WEEKDAY_MESSAGE);
+        return inputView.userInput();
+    }
+
+    public String inputWeekendWorkers() {
+        outputView.printMessage(Output.INPUT_WEEKEND_MESSAGE);
+        return inputView.userInput();
+    }
 }
