@@ -14,23 +14,31 @@ public class OncallController {
     }
 
     public void start(){
-        inputMonthAndDayFromUser();
-        setWorkersFromUserInput();
-//        inputWeekendOncallFromUser();
-//        createOncall();
-//        outputOncall();
-    }
-    
-    private void inputMonthAndDayFromUser() {
-        getValidInput(() -> Oncall.from(view.inputMonthAndDay()));
+        Oncall oncall = inputMonthAndDayFromUser();
+        Workers workers = setWorkersFromUserInput();
+        createWorkSchedule(oncall, workers);
+        outputOncall(oncall);
     }
 
-    private void setWorkersFromUserInput() {
+    private Oncall inputMonthAndDayFromUser() {
+        return getValidInput(() -> Oncall.from(view.inputMonthAndDay()));
+    }
+
+    private Workers setWorkersFromUserInput() {
         Workers workers = Workers.create();
         getValidInput(() -> {
             workers.setWeekdayWorkers(view.inputWeekdayWorkers());
             workers.setWeekendWorkers(view.inputWeekendWorkers());
         });
+        return workers;
+    }
+
+    private void createWorkSchedule(Oncall oncall, Workers workers) {
+        oncall.setWorkSchedule(workers);
+    }
+
+    private void outputOncall(Oncall oncall) {
+
     }
 
 }

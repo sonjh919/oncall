@@ -2,7 +2,9 @@ package oncall.domain;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import oncall.domain.constant.DateClassification;
 import oncall.global.exception.ExceptionMessage;
 import oncall.global.exception.ValidatorBuilder;
 
@@ -30,6 +32,33 @@ public class Workers {
 
     public void setWeekendWorkers(String workers) {
         this.weekendWorkers = validatWorkers(Arrays.stream(workers.split(DELIMITER)).toList());
+    }
+
+    public String setWorker(DateClassification dateClassification, String beforeWorker) {
+        if(dateClassification == DateClassification.WEEKDAY){
+            return setWeekdayWorker(beforeWorker);
+        }
+        return setWeekendWorker(beforeWorker);
+    }
+
+    private String setWeekendWorker(String beforeWorker) {
+        String worker;
+        if(beforeWorker.equals(weekendWorkers.get(0))){
+            Collections.swap(weekendWorkers,0,1);
+        }
+        worker = weekendWorkers.get(0);
+        Collections.rotate(weekendWorkers,-1);
+        return worker;
+    }
+
+    private String setWeekdayWorker(String beforeWorker) {
+        String worker;
+        if(beforeWorker.equals(weekdayWorkers.get(0))){
+            Collections.swap(weekdayWorkers,0,1);
+        }
+        worker = weekdayWorkers.get(0);
+        Collections.rotate(weekdayWorkers,-1);
+        return worker;
     }
 
     private List<String> validatWorkers(List<String> input) {

@@ -3,26 +3,20 @@ package oncall.domain;
 import java.time.DayOfWeek;
 import oncall.domain.constant.DateClassification;
 
-public class Date {
+public class WorkSchedule {
     private int date;
     private DayOfWeek dayOfWeek;
     private DateClassification dateClassification;
+    private String worker;
 
-    public Date(int date, DayOfWeek dayOfWeek, DateClassification dateClassification) {
+    public WorkSchedule(int date, DayOfWeek dayOfWeek, DateClassification dateClassification) {
         this.date = date;
         this.dayOfWeek = dayOfWeek;
         this.dateClassification = dateClassification;
     }
 
-    public int getDate() {
-        return date;
-    }
-
-    public DayOfWeek getDayOfWeek() {
-        return dayOfWeek;
-    }
-
-    public DateClassification getDateClassification() {
-        return dateClassification;
+    public String setWorker(Workers workers, String beforeWorker) {
+        worker = workers.setWorker(dateClassification, beforeWorker);
+        return worker;
     }
 }

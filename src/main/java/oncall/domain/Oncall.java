@@ -15,18 +15,30 @@ public class Oncall {
     private static final int END_MONTH = 12;
 
     private int month;
-    private List<Date> dates;
+    private List<WorkSchedule> oncall;
 
     private Oncall(int month, DayOfWeek dayOfWeek) {
         this.month = month;
         setDates(month, dayOfWeek);
     }
 
+    public static Oncall from(String input) {
+        List<String> inputHandler = List.of(input.split(DELIMITER));
+        return new Oncall(validateMonth(inputHandler.get(0)), validateDay(inputHandler.get(1)));
+    }
+
+    public void setWorkSchedule(Workers workers) {
+        String beforeWorker = null;
+        for (WorkSchedule schedule : oncall) {
+            beforeWorker = schedule.setWorker(workers, beforeWorker);
+        }
+    }
+
     private void setDates(int month, DayOfWeek input) {
-        dates = new ArrayList<>();
+        oncall = new ArrayList<>();
         for (int date = 1; date <= DateOfMonth.getDate(month); date++) {
             DayOfWeek dayOfWeek = setDayOfWeek(date, input);
-            dates.add(new Date(date, dayOfWeek, setDateClassification(month, date,dayOfWeek)));
+            oncall.add(new WorkSchedule(date, dayOfWeek, setDateClassification(month, date,dayOfWeek)));
         }
     }
 
@@ -43,10 +55,7 @@ public class Oncall {
         return DayOfWeek.of(date);
     }
 
-    public static Oncall from(String input) {
-        List<String> inputHandler = List.of(input.split(DELIMITER));
-        return new Oncall(validateMonth(inputHandler.get(0)), validateDay(inputHandler.get(1)));
-    }
+
 
     private static int validateMonth(String input) {
         return ValidatorBuilder.from(input)
@@ -58,4 +67,6 @@ public class Oncall {
     private static DayOfWeek validateDay(String input) {
         return DayOfWeek.valueOf(Day.validate(input));
     }
+
+
 }
