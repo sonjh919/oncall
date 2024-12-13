@@ -19,6 +19,7 @@ public class ExceptionHandler {
         while (true) {
             try {
                 runnable.run();
+                return;
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }

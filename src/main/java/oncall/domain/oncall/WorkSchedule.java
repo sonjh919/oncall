@@ -1,7 +1,8 @@
-package oncall.domain;
+package oncall.domain.oncall;
 
 import java.time.DayOfWeek;
 import oncall.domain.constant.DateClassification;
+import oncall.domain.oncall.dto.GetWorkScheduleDto;
 
 public class WorkSchedule {
     private int date;
@@ -18,5 +19,9 @@ public class WorkSchedule {
     public String setWorker(Workers workers, String beforeWorker) {
         worker = workers.setWorker(dateClassification, beforeWorker);
         return worker;
+    }
+
+    public GetWorkScheduleDto getWorkSchedule(){
+        return new GetWorkScheduleDto(date, dayOfWeek, dateClassification, worker);
     }
 }

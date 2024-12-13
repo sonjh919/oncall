@@ -1,5 +1,7 @@
 package oncall.view;
 
+import oncall.domain.oncall.dto.GetOncallDto;
+
 public class View {
     private final InputView inputView;
     private final OutputView outputView;
@@ -32,5 +34,9 @@ public class View {
     public String inputWeekendWorkers() {
         outputView.printMessage(Output.INPUT_WEEKEND_MESSAGE);
         return inputView.userInput();
+    }
+
+    public void outputOncall(GetOncallDto schedules) {
+        outputView.printSchedules(schedules);
     }
 }

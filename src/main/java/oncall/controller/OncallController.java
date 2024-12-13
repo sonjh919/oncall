@@ -2,8 +2,8 @@ package oncall.controller;
 
 import static oncall.global.exception.ExceptionHandler.getValidInput;
 
-import oncall.domain.Oncall;
-import oncall.domain.Workers;
+import oncall.domain.oncall.Oncall;
+import oncall.domain.oncall.Workers;
 import oncall.view.View;
 
 public class OncallController {
@@ -38,7 +38,7 @@ public class OncallController {
     }
 
     private void outputOncall(Oncall oncall) {
-
+        view.outputOncall(oncall.getSchedules());
     }
 
 }

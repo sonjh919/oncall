@@ -6,7 +6,7 @@ public enum DateClassification {
     WEEKDAY, WEEKEND, WEEKDAY_HOLIDAY;
 
     public static DateClassification getClassification(int month, int date, DayOfWeek dayOfWeek) {
-        if(dayOfWeek == DayOfWeek.THURSDAY || dayOfWeek == DayOfWeek.SUNDAY){
+        if(dayOfWeek == DayOfWeek.SATURDAY || dayOfWeek == DayOfWeek.SUNDAY){
             return WEEKEND;
         }
         if(Holiday.isHoliday(month,date)){

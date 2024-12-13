@@ -1,4 +1,4 @@
-package oncall.domain;
+package oncall.domain.oncall;
 
 import java.time.DayOfWeek;
 import java.util.ArrayList;
@@ -6,6 +6,8 @@ import java.util.List;
 import oncall.domain.constant.DateClassification;
 import oncall.domain.constant.DateOfMonth;
 import oncall.domain.constant.Day;
+import oncall.domain.oncall.dto.GetOncallDto;
+import oncall.domain.oncall.dto.GetWorkScheduleDto;
 import oncall.global.exception.ExceptionMessage;
 import oncall.global.exception.ValidatorBuilder;
 
@@ -28,10 +30,18 @@ public class Oncall {
     }
 
     public void setWorkSchedule(Workers workers) {
-        String beforeWorker = null;
+        String beforeWorker = "";
         for (WorkSchedule schedule : oncall) {
             beforeWorker = schedule.setWorker(workers, beforeWorker);
         }
+    }
+
+    public GetOncallDto getSchedules(){
+        List<GetWorkScheduleDto> getWorkSchedules = new ArrayList<>();
+        for (WorkSchedule workSchedule : oncall) {
+            getWorkSchedules.add(workSchedule.getWorkSchedule());
+        }
+        return new GetOncallDto(month, getWorkSchedules);
     }
 
     private void setDates(int month, DayOfWeek input) {
@@ -54,8 +64,6 @@ public class Oncall {
         }
         return DayOfWeek.of(date);
     }
-
-
 
     private static int validateMonth(String input) {
         return ValidatorBuilder.from(input)

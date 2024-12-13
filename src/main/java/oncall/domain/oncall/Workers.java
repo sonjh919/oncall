@@ -1,4 +1,4 @@
-package oncall.domain;
+package oncall.domain.oncall;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,11 +27,11 @@ public class Workers {
     }
 
     public void setWeekdayWorkers(String workers) {
-        this.weekdayWorkers = validatWorkers(Arrays.stream(workers.split(DELIMITER)).toList());
+        this.weekdayWorkers.addAll(validatWorkers(Arrays.stream(workers.split(DELIMITER)).toList()));
     }
 
     public void setWeekendWorkers(String workers) {
-        this.weekendWorkers = validatWorkers(Arrays.stream(workers.split(DELIMITER)).toList());
+        this.weekendWorkers.addAll(validatWorkers(Arrays.stream(workers.split(DELIMITER)).toList()));
     }
 
     public String setWorker(DateClassification dateClassification, String beforeWorker) {
@@ -57,6 +57,7 @@ public class Workers {
             Collections.swap(weekdayWorkers,0,1);
         }
         worker = weekdayWorkers.get(0);
+
         Collections.rotate(weekdayWorkers,-1);
         return worker;
     }
