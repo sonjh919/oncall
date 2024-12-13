@@ -1,5 +1,8 @@
 package oncall.controller;
 
+import static oncall.global.exception.ExceptionHandler.getValidInput;
+
+import oncall.domain.Oncall;
 import oncall.view.View;
 
 public class OncallController {
@@ -11,10 +14,14 @@ public class OncallController {
 
     public void start(){
         inputMonthAndDayFromUser();
-        inputWeekdayOncallFromUser();
-        inputWeekendOncallFromUser();
-        createOncall();
-        outputOncall();
+//        inputWeekdayOncallFromUser();
+//        inputWeekendOncallFromUser();
+//        createOncall();
+//        outputOncall();
+    }
+
+    private void inputMonthAndDayFromUser() {
+        getValidInput(() -> Oncall.from(view.inputMonthAndDay()));
     }
 
 }

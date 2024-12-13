@@ -18,4 +18,9 @@ public class View {
         outputView.printNewLine();
         outputView.printMessage(Output.NEW_LINE);
     }
+
+    public String inputMonthAndDay() {
+        outputView.printMessage(Output.INPUT_MONTH_DAY_MESSAGE);
+        return inputView.userInput();
+    }
 }
